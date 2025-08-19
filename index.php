@@ -5,17 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LMS protal #59</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        #main {
-            flex: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="public/static/style.css">
+    <link rel="stylesheet" href="public/static/404.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 </head>
@@ -34,9 +25,15 @@
         } else if (isset($_GET['upload'])) {
             include('client/template/common/upload.php');
         } else if (isset($_GET['login'])) {
-            include('client/template/auth/login.php');
+            include('client/template/auth/users/login.php');
         } else if (isset($_GET['register'])) {
-            include('client/template/auth/register.php');
+            include('client/template/auth/users/register.php');
+        } else if (isset($_GET['details'])) {
+            include('client/template/common/details.php');
+        } else if (isset($_GET['adminLogin'])) {
+            include('client/template/auth/admin/login.php');
+        } else if (isset($_GET['dashboard'])) {
+            include('client/template/auth/admin/dashboard.php');
         } else {
             include('client/template/common/404.php');
         }
@@ -49,6 +46,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
         crossorigin="anonymous"></script>
+    <script src="public/static/404.js"></script>
 </body>
 
 </html>

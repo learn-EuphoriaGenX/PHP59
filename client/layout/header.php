@@ -19,6 +19,12 @@
                 <a class="nav-link" href="?upload=true">Upload</a>
             </li>
             <li class="nav-item active">
+                <a class="nav-link text-danger" href="?logout=true">Logout</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link text-primary" href="?dashboard=true">Dashboard</a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link text-success" href="?login=true">Login</a>
             </li>
             <li class="nav-item active">
@@ -29,5 +35,12 @@
             <input class="form-control mr-sm-2" type="text" placeholder="Search Notes" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+                <a class="nav-link text-primary" href="?adminLogin=true">Admin Login</a>
+            </li>
+
+        </ul>
     </div>
 </nav>
