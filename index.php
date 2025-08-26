@@ -16,6 +16,7 @@
     <div class="mt-5 pt-3" id="main">
 
         <?php
+        include('common/db.php');
         if (isset($_GET['home'])) {
             include('client/template/common/home.php');
         } else if (isset($_GET['notes'])) {
