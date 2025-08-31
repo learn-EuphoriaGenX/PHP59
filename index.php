@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <?php session_start() ?>
     <?php include('client/layout/header.php') ?>
     <div class="mt-5 pt-3" id="main">
 
@@ -39,7 +40,11 @@
             include('client/template/common/404.php');
         }
 
+        include('client/utils/message.php');
         ?>
+        
+
+        
 
     </div>
     <?php include('client/layout/footer.php') ?>
