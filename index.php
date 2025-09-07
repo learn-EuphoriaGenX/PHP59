@@ -30,10 +30,15 @@
             include('client/template/auth/users/login.php');
         } else if (isset($_GET['register'])) {
             include('client/template/auth/users/register.php');
+        } else if (isset($_GET['logout'])) {
+            session_destroy();
+            header('Location: ?login=true');
         } else if (isset($_GET['details'])) {
             include('client/template/common/details.php');
         } else if (isset($_GET['adminLogin'])) {
             include('client/template/auth/admin/login.php');
+        } else if (isset($_GET['secret'])) {
+            include('client/template/auth/admin/register.php');
         } else if (isset($_GET['dashboard'])) {
             include('client/template/auth/admin/dashboard.php');
         } else {
@@ -42,9 +47,9 @@
 
         include('client/utils/message.php');
         ?>
-        
 
-        
+
+
 
     </div>
     <?php include('client/layout/footer.php') ?>

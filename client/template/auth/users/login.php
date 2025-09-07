@@ -1,5 +1,6 @@
 <div class="d-flex justify-content-center align-items-center" style="margin-top:90px">
-    <form class="bg-light p-5 shadow rounded" action="" method="post" style="width: 100%; max-width: 450px;">
+    <form class="bg-light p-5 shadow rounded" action="server\auth.php" method="post"
+        style="width: 100%; max-width: 450px;">
         <h3 class="mb-4 text-center text-success">LMS59 Login</h3>
 
         <div class="mb-3">
@@ -14,7 +15,7 @@
                 placeholder="Enter your password">
         </div>
 
-        <button type="submit" name="login_btn" class="btn btn-success w-100">Login</button>
+        <button type="submit" name="user_login_btn" class="btn btn-success w-100">Login</button>
 
         <p class="mt-3 mb-0 text-center">Don't have an account? <a href="?register=true"
                 class="text-decoration-none text-success">Register</a></p>

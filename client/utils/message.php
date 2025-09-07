@@ -5,11 +5,11 @@
             <?php
             if (isset($_SESSION['error_msg'])) {
                 echo '<strong>Error!</strong>' . " " . $_SESSION['error_msg'];
-                session_destroy();
+                unset($_SESSION['error_msg']);
             }
             if (isset($_SESSION['success_msg'])) {
                 echo '<strong>Success!</strong>' . $_SESSION['success_msg'];
-                session_destroy();
+                unset($_SESSION['success_msg']);
             }
             ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

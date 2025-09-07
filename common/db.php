@@ -1,20 +1,5 @@
 <?php
-// Database configuration
-$host = "localhost";
-$user = "root";
-$password = null;
-$database = "notesPedia59";
-$port = 3306;
 
-// Establish connection
-$conn = new mysqli($host, $user, $password, $database, $port);
-
-// Check connection
-if ($conn->connect_error) {
-  die("❌ Connection failed: " . $conn->connect_error);
-}
-
-// Table creation queries
 $queries_array = [
   "users" => "
         CREATE TABLE IF NOT EXISTS `users` (
@@ -60,11 +45,30 @@ $queries_array = [
     "
 ];
 
-// Execute queries
-foreach ($queries_array as $table => $query) {
-  if ($conn->query($query) === FALSE) {
-    echo "❌ Error creating `$table`: " . $conn->error . "<br>";
+$host = "localhost";
+$user = "root";
+$password = null;
+$database = "notesPedia59";
+$port = 3306;
+
+try {
+  // Establish connection
+  $conn = new mysqli($host, $user, $password, $database, $port);
+
+  // Check connection
+  if ($conn->connect_error) {
+    die("❌ Connection failed: " . $conn->connect_error);
   }
+
+  foreach ($queries_array as $table => $query) {
+    if ($conn->query($query) === FALSE) {
+      echo "❌ Error creating `$table`: " . $conn->error . "<br>";
+    }
+  }
+} catch (\Throwable $err) {
+  $_SESSION["error_msg"] = $err->getMessage();
 }
+
+
 
 ?>
