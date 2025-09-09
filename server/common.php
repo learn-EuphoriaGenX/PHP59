@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['upload_btn'])) {
                     header("Location: ../?upload=true");
                 }
             } else {
-                $_SESSION["error_msg"] = "Unable to upload File and Folder!";
+                $_SESSION["error_msg"] = "Unable to upload File and Zip!";
                 header("Location: ../?upload=true");
             }
         } catch (\Throwable $err) {
@@ -49,6 +49,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['upload_btn'])) {
         }
     }
     $conn->close();
+} else if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['saved_btn'])) {
+    $user_id = $_SESSION['id'];
+    $note_id = $_POST['note_id'];
+
+    if (empty($note_id) || empty($user_id)) {
+        $_SESSION['error_msg'] = 'You are Not Logged In';
+        header('Location: ../?details=' . $note_id);
+    } else {
+        try {
+            $stmt = $conn->prepare("SELECT * FROM saved_notes WHERE user_id = ? AND note_id = ?");
+            $stmt->bind_param("ii", $user_id, $note_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $_SESSION['error_msg'] = 'Already Saved!';
+                header('Location: ../?details=' . $note_id);
+            } else {
+                $stmt = $conn->prepare('INSERT into saved_notes (user_id, note_id) VALUES (?, ?)');
+                $stmt->bind_param('ii', $user_id, $note_id);
+                $stmt->execute();
+                if ($stmt->affected_rows > 0) {
+                    $_SESSION['success_msg'] = ' Notes Addedd To Saved!';
+                    header('Location: ../?details=' . $note_id);
+                } else {
+                    $_SESSION['error_msg'] = 'Something Went Wrong😥';
+                    header('Location: ../?details=' . $note_id);
+                }
+            }
+        } catch (\Throwable $err) {
+            $_SESSION["error_msg"] = $err->getMessage();
+            header('Location: ../?details=' . $note_id);
+        }
+    }
 }
 
 

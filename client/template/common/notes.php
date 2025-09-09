@@ -4,75 +4,56 @@
         <h2 class="text-center fw-bold mb-5">📘 Popular Notes</h2>
         <div class="row g-4">
 
-            <!-- Card 1 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card shadow-sm h-100">
-                    <img src="https://plus.unsplash.com/premium_photo-1661761077411-d50cba031848" class="card-img-top"
-                        alt="PHP">
-                    <div class="card-body">
-                        <h5 class="card-title">PHP Interview Questions</h5>
-                        <p class="card-text">Collection of top PHP interview questions with answers to boost your
-                            preparation.</p>
-                        <a href="?details=true" class="btn btn-success">Read More</a>
-                    </div>
-                </div>
-            </div>
+            <?php
+            $stmt = $conn->prepare("SELECT * FROM notes");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            ?>
 
-            <!-- Card 2 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card shadow-sm h-100">
-                    <img src="https://plus.unsplash.com/premium_photo-1661761077411-d50cba031848" class="card-img-top"
-                        alt="Java">
-                    <div class="card-body">
-                        <h5 class="card-title">Java Basics</h5>
-                        <p class="card-text">Comprehensive notes on OOP concepts, syntax, and examples for Java
-                            beginners.</p>
-                        <a href="#" class="btn btn-success">Read More</a>
-                    </div>
-                </div>
-            </div>
+            <?php if ($result->num_rows > 0): ?>
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 shadow-lg border-0 rounded-4 overflow-hidden note-card">
+                            <!-- Thumbnail -->
+                            <div class="ratio ratio-16x9">
+                                <img src="server/uploads/thumb/<?php echo $row['thumbnail'] ?>" class="card-img-top"
+                                    alt="Note Thumbnail" style="object-fit: cover;">
+                            </div>
 
-            <!-- Card 3 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card shadow-sm h-100">
-                    <img src="https://plus.unsplash.com/premium_photo-1661761077411-d50cba031848" class="card-img-top"
-                        alt="Python">
-                    <div class="card-body">
-                        <h5 class="card-title">Python Notes</h5>
-                        <p class="card-text">Learn Python with simple explanations, examples, and exercises for
-                            practice.</p>
-                        <a href="#" class="btn btn-success">Read More</a>
+                            <!-- Content -->
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title fw-bold text-truncate">
+                                    <?php echo $row['title'] ?>
+                                </h5>
+                                <p class="card-text text-muted small"
+                                    style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                    <?php echo $row['description'] ?>
+                                </p>
+                                <div class="mt-auto">
+                                    <a href="?details=<?php echo $row['id'] ?>" class="btn btn-success w-100 rounded-pill">
+                                        Read More
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card shadow-sm h-100">
-                    <img src="https://plus.unsplash.com/premium_photo-1661761077411-d50cba031848" class="card-img-top"
-                        alt="Database">
-                    <div class="card-body">
-                        <h5 class="card-title">Database Management</h5>
-                        <p class="card-text">Notes on SQL queries, ER diagrams, and normalization with examples.</p>
-                        <a href="#" class="btn btn-success">Read More</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card shadow-sm h-100">
-                    <img src="https://plus.unsplash.com/premium_photo-1661761077411-d50cba031848" class="card-img-top"
-                        alt="Networking">
-                    <div class="card-body">
-                        <h5 class="card-title">Computer Networking</h5>
-                        <p class="card-text">Covers OSI model, TCP/IP, routing, and key concepts for networking exams.
-                        </p>
-                        <a href="#" class="btn btn-success">Read More</a>
-                    </div>
-                </div>
-            </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p class="text-center text-muted">No Notes Found 📭</p>
+            <?php endif; ?>
 
         </div>
     </div>
 </section>
+
+<!-- Custom CSS -->
+<style>
+    .note-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .note-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
